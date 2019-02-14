@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF8">
+<title>log</title>
+    <script>
+        var wsLoc = "ws://vbooking.eastasia.cloudapp.azure.com:8080/VBooking/broadcast";
+//        var wsLoc = "ws://localhost:8080/VBooking/broadcast";
+       //WebSocket可以選擇ws或是wss通訊協定，ws就相當於一般的http，wss則相當於https
+        var ws = new WebSocket(wsLoc);
+
+        //當連線開啟時觸發
+        ws.onopen = function () {
+            console.log("Websocket is opened!!");
+        };
+        //收到訊息時觸發
+        ws.onmessage = function (msgEvent) {
+            console.log("Received Message!!", msgEvent);
+            var msgDisplay = document.getElementById("msgDisplay");
+            msgDisplay.innerText = msgDisplay.innerText + msgEvent.data;
+        };
+
+        //直接測試傳送訊息
+        ws.send('Hello WebSocket.');
+    </script>
+</head>
+    
+<body>Waiting for Message!!<div id="msgDisplay" style="color: blue;padding: 15px;">
+</div>
+</body>
+</html>
