@@ -1,4 +1,4 @@
-package com.systex.b300.vorder.vo;
+package com.systex.b300.vbooking.vo;
 
 public class IVRReqData extends BaseVo {
 

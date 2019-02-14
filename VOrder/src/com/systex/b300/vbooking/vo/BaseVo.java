@@ -1,4 +1,4 @@
-package com.systex.b300.vorder.vo;
+package com.systex.b300.vbooking.vo;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -7,11 +7,12 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+//import org.json.JSONObject;
+
 
 public class BaseVo implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
 	public boolean isBlank(String str){
 		return (str == null || str.isEmpty() || str.length() == 0);
 	}
