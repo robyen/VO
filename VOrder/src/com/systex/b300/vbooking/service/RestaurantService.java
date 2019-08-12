@@ -46,7 +46,8 @@ public class RestaurantService {
 	}
 	
 	public RestaurantVo qryRestaurantbBySIP(String sipNo)throws Exception{
-		return getDao().qryRestaurantbBySIP(sipNo);
+		RestaurantVo vo =  getDao().qryRestaurantbBySIP(sipNo);
+		return vo;
 
 	}
 	

@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 @Provider
 public class JerseyFilter implements ContainerRequestFilter,ContainerResponseFilter {
-	private static Logger log = LogManager.getLogger();
+	private static Logger log = LogManager.getLogger("sysLog");
 
     @Override
     public ContainerRequest filter(ContainerRequest request) {
@@ -39,6 +39,8 @@ public class JerseyFilter implements ContainerRequestFilter,ContainerResponseFil
 //        } catch (IOException ex) {
 //            throw new ContainerException(ex);
 //        }
+        log.info("request==>"+request.getPath());
+
     	return request;
 
     }
@@ -52,7 +54,7 @@ public class JerseyFilter implements ContainerRequestFilter,ContainerResponseFil
 
 	@Override
 	public ContainerResponse filter(ContainerRequest request, ContainerResponse response) {
-//        log.info("response==>"+response.getEntity());
+        log.info("response==>"+response.getEntity());
 
 		ConnectionManager.closeConnection();
 		return response;

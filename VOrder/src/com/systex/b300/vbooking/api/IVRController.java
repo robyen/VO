@@ -29,7 +29,7 @@ import org.codehaus.jettison.json.JSONObject;
 import com.google.gson.Gson;
 import com.systex.b300.vbooking.service.BookingService;
 import com.systex.b300.vbooking.sys.BroadcasterServer;
-import com.systex.b300.vbooking.sys.WriteLogFileThread;
+import com.systex.b300.vbooking.sys.WriteLogThread;
 import com.systex.b300.vbooking.sys.WriteWaveFileThread;
 
 //import org.json.JSONObject;
@@ -91,7 +91,6 @@ public class IVRController extends BaseController {
 		String STTString = "";
 		try{
 			String reqStr = receiveStream(is);
-//			System.out.println("sendASR==>req:"+reqStr);
 			log.info("sendASR req==>....");
 			
 			JSONObject req = new JSONObject(reqStr);
@@ -126,8 +125,8 @@ public class IVRController extends BaseController {
 			int finalFalg = stt.getInt("FinalFlag");
 			String asrText = getJSONString(stt,"asr_text");//  stt.getString("TTSText");
 
-			WriteLogFileThread logt = new WriteLogFileThread(asrText,respText);
-			logt.start();
+//			WriteLogFileThread logt = new WriteLogFileThread(asrText,respText);
+//			logt.start();
 			
 			//沒進入意圖,等待客戶再說一遍
 			if(respText == null && finalFalg == -1){

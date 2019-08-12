@@ -15,12 +15,14 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.systex.b300.vbooking.sys.ConnectionManager;
 
 
 public class BaseDao {
-//	private Logger log = Logger.getLogger(BaseDao.class);
+	private static Logger log = LogManager.getLogger("sysLog");
 	ResultSet rs;
 	PreparedStatement pStmt;
 	Connection conn;
@@ -44,14 +46,13 @@ public class BaseDao {
 	}
 
 	protected ResultSet executeQry(String sql,Object ...params) throws SQLException{
-		System.out.println(getRealCommand(sql,params));
 		getPreparedStatement(sql);
 		setParam(params);
 		rs = pStmt.executeQuery();
 		return rs;
 	}
 	
-	protected int executeUpdate(String sql,Object ... params) throws SQLException{
+	protected int executeUpdate(String sql,Object ... params) throws SQLException{		
 		getPreparedStatement(sql);
 		setParam(params);
 		int rc = pStmt.executeUpdate();
@@ -465,14 +466,15 @@ public class BaseDao {
 			if(!isBlank(obj)){
 				sqls.append(col).append(" = ?,");
 				paramList.add(obj);
-			}
+			} 
 		}
-		if(paramList.isEmpty()) return 0;
+		if(paramList.isEmpty()) return 0; 
 		sqls.setLength(sqls.length() - 1);
 		
 		sqls.append(" WHERE 1=1 ");
 		for(String key : keys){
 			Object obj = PropertyUtils.getProperty(data, getVarName(key));
+			System.out.println("Key:"+key+",value:"+obj);
 			if(!isBlank(obj)){
 				sqls.append(" AND ").append(key).append(" = ? ");
 				paramList.add(obj);

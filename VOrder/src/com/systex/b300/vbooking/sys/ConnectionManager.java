@@ -7,10 +7,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
-//import org.apache.logging.log4j.LogManager;import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ConnectionManager {
-//	static Logger log = Logger.getLogger(ConnectionManager.class);
+	private static Logger log = LogManager.getLogger("sysLog");
 	private static ThreadLocal<Connection> dbConn = new ThreadLocal<Connection>();
 	
 	public static final String JDBC_DRIVER ="Jdbc_Driver";
@@ -21,7 +22,7 @@ public class ConnectionManager {
 	private static final String Jdbc_Driver = "com.mysql.cj.jdbc.Driver";
 	private static final String Jdbc_URL = "jdbc:mysql://localhost:3306/vbooking?verifyServerCertificate=false&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private static final String Jdbc_User_Name = "root";
-	private static final String Jdbc_Password = "password";
+	private static final String Jdbc_Password = "Cl2493k5p172";
 //	private static final String Jdbc_URL = "jdbc:mysql://10.109.1.50:3306/ec?verifyServerCertificate=false&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 //	private static final String Jdbc_User_Name = "mysql";
 //	private static final String Jdbc_Password = "password";
@@ -36,7 +37,7 @@ public class ConnectionManager {
 			Connection conn = dbConn.get();
 			if(!isCreateNew) return conn;
 			if(conn != null && !conn.isClosed()) return conn;
-			File f = new File("/home/systex/jdbc.pro");
+			File f = new File("/root/jdbc.pro");
 			if(f.exists()){
 				Properties p = new Properties();
 				p.load(new FileInputStream(f));
@@ -45,7 +46,6 @@ public class ConnectionManager {
 				conn = getConnection();
 			}
 			dbConn.set(conn);
-//			log.info("Thread{"+Thread.currentThread().getId()+"} Get DB Connection :"+conn);
 			return conn;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -61,6 +61,8 @@ public class ConnectionManager {
 			String usr = property.getProperty(JDBC_USER_NAME);
 			String pwd = property.getProperty(JDBC_PASSWORD);
 			Connection conn = DriverManager.getConnection(url, usr, pwd);
+			log.info("Thread{"+Thread.currentThread().getId()+"} Get DB Connection :"+conn);
+			
 			return conn;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -98,9 +100,11 @@ public class ConnectionManager {
 		try{
 			Connection conn = dbConn.get();
 			if(conn == null || conn.isClosed()) return;
+			log.info("Thread{"+Thread.currentThread().getId()+"} Close DB Connection :"+conn);
 			conn.close();
+			dbConn.remove();
 		}catch(Exception e){
-//			log.debug(e);
+			log.debug(e.getMessage());
 		}
 		
 	}

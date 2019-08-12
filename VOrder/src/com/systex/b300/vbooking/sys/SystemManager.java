@@ -12,7 +12,7 @@ public class SystemManager {
 
 //	public static ThreadLocal<RestaurantInlineVo> restaurants = new ThreadLocal<RestaurantInlineVo>();
 	public static Map<String,RestaurantInlineVo> restaurants = new HashMap<String,RestaurantInlineVo>();
-	private static Logger log = LogManager.getLogger();
+	private static Logger log = LogManager.getLogger("sysLog");
 
 	
 	public static RestaurantInlineVo getRestaurant(String uid) throws Exception{

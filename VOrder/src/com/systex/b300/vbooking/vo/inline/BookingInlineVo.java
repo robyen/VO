@@ -7,9 +7,10 @@ import com.systex.b300.vbooking.vo.BaseVo;
 
 public class BookingInlineVo extends BaseVo{
 	
-	String date;
-	String time;
 	String note;
+	String uuid;
+	String meta_uuid;
+	
 	
 	@SerializedName("group_num")
 	int groupNum;
@@ -19,6 +20,28 @@ public class BookingInlineVo extends BaseVo{
 	
 	@SerializedName("chair_num")
 	int chairNum;
+	
+	String date;
+	String time;
+
+	
+//	@SerializedName("time_date")
+//	String date;
+//	
+//	@SerializedName("time_time")
+//	String time;	
+//	
+//	@SerializedName("seat_num")
+//	int groupNum;
+//	
+//	@SerializedName("seat_num_children")
+//	int kidNum;
+//	
+//	@SerializedName("chair_num")
+//	int chairNum;
+//		
+
+	
 	
 	@SerializedName("restaurant_id")
 	String restaurantId;
@@ -52,12 +75,16 @@ public class BookingInlineVo extends BaseVo{
 	@SerializedName("caller_id")
 	String callerId;
 	
-	@SerializedName("resp_text")
-	String respText;
-
 	@SerializedName("end_status")
 	String endStatus;
 
+	String reservationId;
+	String customerId;
+	String reservationLink;
+	int inlineCode;
+	String inlineReason;
+	String inlineMessage;
+	
 	
 	public String getDate() {
 		return date;
@@ -179,13 +206,6 @@ public class BookingInlineVo extends BaseVo{
 		this.callerId = callerId;
 	}
 
-	public String getRespText() {
-		return respText;
-	}
-
-	public void setRespText(String respText) {
-		this.respText = respText;
-	}
 
 	public String getNote() {
 		return note;
@@ -201,6 +221,70 @@ public class BookingInlineVo extends BaseVo{
 
 	public void setEndStatus(String endStatus) {
 		this.endStatus = endStatus;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(String reservationId) {
+		this.reservationId = reservationId;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getReservationLink() {
+		return reservationLink;
+	}
+
+	public void setReservationLink(String reservationLink) {
+		this.reservationLink = reservationLink;
+	}
+
+	public int getInlineCode() {
+		return inlineCode;
+	}
+
+	public void setInlineCode(int inlineCode) {
+		this.inlineCode = inlineCode;
+	}
+
+	public String getInlineReason() {
+		return inlineReason;
+	}
+
+	public void setInlineReason(String inlineReason) {
+		this.inlineReason = inlineReason;
+	}
+
+	public String getInlineMessage() {
+		return inlineMessage;
+	}
+
+	public void setInlineMessage(String inlineMessage) {
+		this.inlineMessage = inlineMessage;
+	}
+
+	public String getMeta_uuid() {
+		return meta_uuid;
+	}
+
+	public void setMeta_uuid(String meta_uuid) {
+		this.meta_uuid = meta_uuid;
 	}
 	
 	

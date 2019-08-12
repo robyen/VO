@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="debug">
 	<Properties>
-		<Property name="log-path">/home/systex/logs/</Property>
+		<Property name="log-path">/opt/tomcat/logs/</Property>
 	</Properties>
 
 	<Appenders>
@@ -15,7 +15,17 @@
 				<SizeBasedTriggeringPolicy size="100 MB"/>
 			</Policies>
 		</RollingFile>
-
+		
+		<RollingFile name="sysLog" fileName="${log-path}/sysLog.log"
+			filePattern="${log-path}/$${date:yyyy-MM}/sysLog-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<pattern>%d %-5p [%t] %C{2} (%F:%L) - %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB"/>
+			</Policies>
+		</RollingFile>
 		<Console name="console" target="SYSTEM_OUT">
 			<PatternLayout
 				pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
@@ -25,6 +35,9 @@
 		<Logger name="com.systex.b300.vbooking" level="debug" additivity="false">
 			<appender-ref ref="rollingFile" />
 		</Logger>
+		<Logger name="sysLog" level="debug" additivity="false">
+			<appender-ref ref="sysLog" />
+		</Logger>		
 		<Root level="INFO" additivity="false">
 			<appender-ref ref="console" />
 		</Root>

@@ -17,12 +17,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.systex.b300.vbooking.service.BookingService;
 import com.systex.b300.vbooking.service.RestaurantService;
-import com.systex.b300.vbooking.sys.WriteLogFileThread;
+import com.systex.b300.vbooking.sys.WriteLogThread;
 import com.systex.b300.vbooking.vo.BookingVo;
 import com.systex.b300.vbooking.vo.EmFlowReqVo;
 import com.systex.b300.vbooking.vo.EmFlowRespVo;
 import com.systex.b300.vbooking.vo.EmMessageResponse;
 import com.systex.b300.vbooking.vo.RestaurantVo;
+import com.systex.b300.vbooking.vo.inline.BookingInlineVo;
 import com.systex.b300.vbooking.vo.inline.ReservationRespVo;
 
 
@@ -235,11 +236,12 @@ public class BookingController extends BaseController{
 		
 		BookingService service = new BookingService();
 		
-		List<BookingVo> ll = service.qryBookingList(vo);
+//		List<BookingVo> ll = service.qryBookingList(vo);
+		List<BookingInlineVo> ll = service.qryBookingInlineList(vo);
 		
 		String respStr = gson.toJson(ll);
  
-		log.info("qryBookings==>resp:"+respStr);
+//		log.info("qryBookings==>resp:"+respStr);
 		
 		return respStr;
 		

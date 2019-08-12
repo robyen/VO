@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.systex.b300.vbooking.vo.BookingVo;
+import com.systex.b300.vbooking.vo.inline.BookingInlineVo;
 
 public class BookingDao extends BaseDao{
 
@@ -57,6 +58,19 @@ public class BookingDao extends BaseDao{
 		super.addCondition(sqls,vo.getRestaurantId(), " AND restaurant_id=? ", paramList);
 		sqls.append("ORDER BY DATE,TIME ");
 		return super.executeQryList(BookingVo.class, sqls.toString(), paramList);
+		
+	}
+	
+	public List<BookingInlineVo> qryBookingInlineList(BookingVo vo) throws Exception{
+		StringBuffer sqls = new StringBuffer();
+		sqls.append("SELECT * FROM BOOKING_INLINE ")
+			.append("WHERE 1=1 ");
+		
+		List<Object> paramList = new ArrayList<Object>();
+		super.addCondition(sqls,vo.getDate(), " AND create_date=? ", paramList);
+		super.addCondition(sqls,vo.getRestaurantId(), " AND restaurant_id=? ", paramList);
+		sqls.append("ORDER BY DATE,TIME ");
+		return super.executeQryList(BookingInlineVo.class, sqls.toString(), paramList);
 		
 	}
 	

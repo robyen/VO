@@ -13,5 +13,5 @@ public class BaseService {
 		if("　".equals(data)) return true; 
 		return false;
 	}
-	
+	 
 }

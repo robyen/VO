@@ -122,10 +122,12 @@ public class BookingService extends BaseService{
 	
 	public List<BookingVo> qryBookingList(BookingVo vo) throws Exception{
 		return getBooingDao().qryBookingList(vo);
-		
-		
 	}
 	
+	public List<BookingInlineVo> qryBookingInlineList(BookingVo vo) throws Exception{
+		return getBooingDao().qryBookingInlineList(vo);
+	}
+
 	public int updRemStatus(String bookingId,String result)throws Exception{
 		return getBooingDao().updRemStatus(bookingId,result);
 	}

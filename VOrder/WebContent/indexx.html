@@ -107,15 +107,7 @@
 			餐廳:
 			<select id="restaurantId" value="D00" onChange="queryRestaurant();">
 				<option value="D00">精誠餐廳</option>
-				<option value="A01">王品牛排</option>
-				<option value="A02">西堤牛排</option>
-				<option value="A03">陶板屋</option>
-				<option value="A04">原燒</option>
-				<option value="A05">夏慕尼新香榭鐵板燒</option>
-				<option value="A06">品田牧場</option>
-				<option value="A07">藝奇新日本料理</option>
-				<option value="B00">北平都一處</option>
-				<option value="C00">龍都酒樓</option>
+				<option value="A99">粉紅圈圈甜點屋</option>
 			</select>
 			打電話日期:<input type="Text" id="bookingDate" name="bookingDate" maxlength="15" length="15" value="20180415">
 			<input type="button" value="查詢" onClick="queryOrder();">
@@ -125,6 +117,7 @@
 					<tr>
 						<td>餐廳名稱</td><td><span id="restaurantName"></span></td><td>餐廳電話</td><td><span id="restaurantTel"></span></td><td>餐廳地址</td><td><span id="restaurantAddr"></span></td>
 					</tr>
+<!-- 					
 					<tr>
 						<td>選項1</td><td colspan="5"><span id="restaurantOpt1"></span></td>
 					</tr>
@@ -134,6 +127,7 @@
 					<tr>
 						<td>選項3</td><td colspan="5"><span id="restaurantOpt3"></span></td>
 					</tr>
+ -->					
 				</table>
 			</div>
 			
@@ -167,7 +161,6 @@
 								  <th>訂位人數</th>
 								  <th>訂位狀態</th>
 								  <th>特殊需求</th>
-								  <th>功　　能</th>
 							  </tr>
 						  </thead>
 						  <tbody id="orderList">
@@ -287,8 +280,9 @@ function header(){
     var td6 = $('<th>').text('訂位餐聽');
     var td7 = $('<th>').text('預訂餐點');
     var td8 = $('<th>').text('狀　　態');
-    var td9 = $('<th>').text('功　　能');
-    var tr = $('<tr>').append(td1,td2,td3,td4,td5,td6,td7,td8,td9);
+    var td9 = $('<th>').text('備　　註');
+//    var tr = $('<tr>').append(td1,td2,td3,td4,td5,td6,td7,td8,td9);
+    var tr = $('<tr>').append(td1,td2,td3,td4,td5,td6,td8,td9);
     $('#orderTable').append(tr);
 }
 
@@ -320,9 +314,9 @@ function updRestaurant(data){
 	$("#restaurantName").html(data.name);
 	$("#restaurantTel").html(data.tel);
 	$("#restaurantAddr").html(data.addr);
-	$("#restaurantOpt1").html(data.opt1_desc);
-	$("#restaurantOpt2").html(data.opt2_desc);
-	$("#restaurantOpt3").html(data.opt3_desc);
+//	$("#restaurantOpt1").html(data.opt1_desc);
+//	$("#restaurantOpt2").html(data.opt2_desc);
+//	$("#restaurantOpt3").html(data.opt3_desc);
 }
 
 function queryOrder(){
@@ -354,16 +348,18 @@ function addBody(data){
 	tr.append( $('<td  class="center">').text(data.phone));
 	tr.append( $('<td  class="center">').text(data.date));
 	tr.append( $('<td  class="center">').text(data.time));
-	tr.append( $('<td  class="center">').text(data.seat_num));
-	tr.append( $('<td  class="center">').text(convertStatus(data.status)));
-	tr.append( $('<td  class="center">').html(convertOpts(data)));
-	var delfunc = "delfunc('"+data.id+"')";
-	var nextFunc = "nextFunc('"+data.id+"')";
-	var detailfunc = "detailfunc('"+data.id+"')";
-	tr.append( $('<td  class="center"><a class="btn btn-success" href="#" onclick="'+detailfunc+'"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-info" href="#" onclick="'+nextFunc+'"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onclick="'+delfunc+'"><i class="halflings-icon white trash"></i></a>'));
+	tr.append( $('<td  class="center">').text(data.group_num +"大,"+data.kid_num+"小,"+ data.chair_num+"兒椅") );
+	tr.append( $('<td  class="center">').text(convertStatus(data.end_status)));
+	tr.append( $('<td  class="center">').text(data.note));
+//	tr.append( $('<td  class="center">').html(convertOpts(data)));
+//	var delfunc = "delfunc('"+data.id+"')";
+//	var nextFunc = "nextFunc('"+data.id+"')";
+//	var detailfunc = "detailfunc('"+data.id+"')";
+//	tr.append( $('<td  class="center"><a class="btn btn-success" href="#" onclick="'+detailfunc+'"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-info" href="#" onclick="'+nextFunc+'"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onclick="'+delfunc+'"><i class="halflings-icon white trash"></i></a>'));
 
     $('#orderTable').append(tr);
 }
+
 
 function convertOpts(data){
 	var ret = "";
@@ -394,11 +390,17 @@ function convertOptDetail(desc,yn,num){
 }
 function convertStatus(data){
 	if(data == "0"){
-		return "已訂位";
+		return "訂位完成";
 	}else if(data == "1"){
-		return "待通知";
+		return "語音無法辨識";
+	}else if(data == "2"){
+		return "訂位未完成";
+	}else if(data == "3"){
+		return "訂位平台無回應";
+	}else if(data == "9"){
+		return "系統異常";
 	}else{
-		return "待入場";
+		return "訂位未正常結束";
 	}
 		
 }
